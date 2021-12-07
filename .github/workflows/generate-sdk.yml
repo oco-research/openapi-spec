@@ -28,6 +28,7 @@ jobs:
         run: |
           git config --global user.email "devex-open-contribution-office@adobe.com"
           git config --global user.name "OCO SDK Generator"
+          git config --global init.defaultBranch main
           cd javascript-client
           git init
           git add .
