@@ -1,5 +1,5 @@
 templateDir: .openapi-generator/generators/javascript/templates
-projectName: "Pet Store Node.js SDK"
-npmRepository: https://github.com/oco-research/nodejs
-projectDescription: "NodeJS SDK for Pet Store API"
+projectName: oco-research/nodejs-sdk
+npmRepository: https://github.com/oco-research/nodejs-sdk
+projectDescription: NodeJS SDK for Pet Store API
 usePromises: true
