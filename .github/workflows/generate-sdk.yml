@@ -26,7 +26,7 @@ jobs:
           git config --global user.email "devex-open-contribution-office@adobe.com"
           git config --global user.name "OCO SDK Generator"
           git config --global init.defaultBranch main
-          git config pull.ff only
+          git config --global pull.ff only
           cd javascript-client
           git init
           git add .
