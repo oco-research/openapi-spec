@@ -1,0 +1,23 @@
+name: Generate SDK
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  generate-sdk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Generate JavaScript SDK
+        uses: openapi-generators/openapitools-generator-action@v1
+        with:
+          generator: javascript
+
+      - name: Do something with the client
+        run: |
+          ls -la javascript-client
