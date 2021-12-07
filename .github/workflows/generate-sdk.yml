@@ -18,6 +18,13 @@ jobs:
         with:
           generator: javascript
 
-      - name: Do something with the client
+      - name: Get API version
         run: |
-          ls -la javascript-client
+          OPENAPI_VERSION=$(cat openapi.json | python3 -c "import sys, json; print(json.load(sys.stdin)['info']['version'])")
+          echo "OpenAPI Version: ${OPENAPI_VERSION}"
+
+      - name: Push changes to external repo
+        run: |
+          ./javascript-client/git_push.sh oco-research nodejs-sdk "${OPENAPI_VERSION}"
+        env:
+          GIT_TOKEN: ${{ secrets.REMOTE_GIT_TOKEN }}
