@@ -25,7 +25,9 @@ jobs:
 
       - name: Push changes to external repo
         run: |
-          chmod +x ./javascript-client/git_push.sh
+          git config --global user.email "devex-open-contribution-office@adobe.com"
+          git config --global user.name "OCO SDK Generator"
+          chmod +x javascript-client/git_push.sh
           ./javascript-client/git_push.sh oco-research nodejs-sdk "${OPENAPI_VERSION}"
         env:
           GIT_TOKEN: ${{ secrets.REMOTE_GIT_TOKEN }}
