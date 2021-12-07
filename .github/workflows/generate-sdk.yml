@@ -28,7 +28,10 @@ jobs:
         run: |
           git config --global user.email "devex-open-contribution-office@adobe.com"
           git config --global user.name "OCO SDK Generator"
-          chmod +x javascript-client/git_push.sh
-          ./javascript-client/git_push.sh oco-research nodejs-sdk "${OPENAPI_VERSION}"
-        env:
-          GIT_TOKEN: ${{ secrets.REMOTE_GIT_TOKEN }}
+          cd javascript-client
+          git init
+          git add .
+          git commit -m "${OPENAPI_VERSION}"
+          git remote add origin https://oco-research:${{ secrets.REMOTE_GIT_TOKEN }}"@github.com/oco-research/nodejs-sdk.git
+          git pull origin main
+          git push origin main 2>&1 | grep -v 'To https'
