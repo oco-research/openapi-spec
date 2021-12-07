@@ -20,6 +20,8 @@ jobs:
           config-file: .openapi-generator/generators/javascript/config.yaml
 
       - name: Push changes to external repo
+        env:
+          REMOTE_GIT_TOKEN: ${{ secrets.REMOTE_GIT_TOKEN }}
         run: |
           OPENAPI_VERSION=$(cat openapi.json | python3 -c "import sys, json; print(json.load(sys.stdin)['info']['version'])")
           echo "OpenAPI Version: ${OPENAPI_VERSION}"
@@ -31,7 +33,6 @@ jobs:
           git init
           git add .
           git commit -m "${OPENAPI_VERSION}"
-          git remote add origin https://${{ secrets.REMOTE_GIT_TOKEN }}@github.com/oco-research/nodejs-sdk.git
-          echo "${{ secrets.REMOTE_GIT_TOKEN }}"
+          git remote add origin https://"$REMOTE_GIT_TOKEN"@github.com/oco-research/nodejs-sdk.git
           git pull origin main --allow-unrelated-histories -X ours
           git push origin main
