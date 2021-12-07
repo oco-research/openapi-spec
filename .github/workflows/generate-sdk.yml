@@ -25,6 +25,7 @@ jobs:
 
       - name: Push changes to external repo
         run: |
+          chmod +x ./javascript-client/git_push.sh
           ./javascript-client/git_push.sh oco-research nodejs-sdk "${OPENAPI_VERSION}"
         env:
           GIT_TOKEN: ${{ secrets.REMOTE_GIT_TOKEN }}
