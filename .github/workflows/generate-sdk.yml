@@ -32,5 +32,6 @@ jobs:
           git add .
           git commit -m "${OPENAPI_VERSION}"
           git remote add origin https://${{ secrets.REMOTE_GIT_TOKEN }}@github.com/oco-research/nodejs-sdk.git
+          echo "${{ secrets.REMOTE_GIT_TOKEN }}"
           git pull origin main --allow-unrelated-histories -X ours
-          git push origin main 2>&1 | grep -v 'To https'
+          git push origin main
