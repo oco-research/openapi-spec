@@ -1,3 +1,4 @@
+# Configuration for Javascript generator
 templateDir: .openapi-generator/generators/javascript/templates
 projectName: oco-research/nodejs-sdk
 npmRepository: https://github.com/oco-research/nodejs-sdk
