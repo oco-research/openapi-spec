@@ -20,7 +20,7 @@ jobs:
         uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: javascript
-          config-file: .openapi-generator/generators/javascript/config.yaml
+          config-file: .openapi-generator/generators/javascript/config.yml
 
       - name: Push changes to external repo
         env:
