@@ -15,7 +15,7 @@ jobs:
         id: autotagger
         uses: butlerlogic/action-autotag@stable
         with:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           strategy: regex
           root: "composer.json"
           regex_pattern: "version=([0-9\.])"
@@ -24,7 +24,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1.0.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.autotagger.outputs.tagname }}
           release_name: ${{ steps.autotagger.outputs.tagname }}
