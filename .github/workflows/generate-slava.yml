@@ -17,14 +17,14 @@ jobs:
             github-owner: oco-research
             github-repo: nodejs-sdk
             github-branch: main
-            github-token: ${{ secrets.REMOTE_GIT_TOKEN }}
-            package-token: ${{ secrets.REMOTE_NPM_TOKEN }}
+            github-token: secret #${{ secrets.REMOTE_GIT_TOKEN }}
+            package-token: secret #${{ secrets.REMOTE_NPM_TOKEN }}
           - generator: php
             github-owner: oco-research
             github-repo: php-sdk
             github-branch: main
-            github-token: ${{ secrets.REMOTE_GIT_TOKEN }}
-            package-token: ${{ secrets.REMOTE_COMPOSER_TOKEN }}
+            github-token: secret #${{ secrets.REMOTE_GIT_TOKEN }}
+            package-token: secret #${{ secrets.REMOTE_COMPOSER_TOKEN }}
 
     steps:
       - name: Generate JavaScript SDK
