@@ -1,0 +1,38 @@
+name: Generate SDK
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  generate-sdk:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - generator: javascript
+            github-owner: oco-research
+            github-repo: nodejs-sdk
+            github-branch: main
+            github-token: ${{ secrets.REMOTE_GIT_TOKEN }}
+            package-token: ${{ secrets.REMOTE_NPM_TOKEN }}
+          - generator: php
+            github-owner: oco-research
+            github-repo: php-sdk
+            github-branch: main
+            github-token: ${{ secrets.REMOTE_GIT_TOKEN }}
+            package-token: ${{ secrets.REMOTE_COMPOSER_TOKEN }}
+
+    steps:
+      - name: Generate JavaScript SDK
+        uses: oco-research/sdk-generator@v1
+        with:
+          generator: ${{ matrix.generator }}
+          github-owner: ${{ matrix.github-owner }}
+          github-repo: ${{ matrix.github-repo }}
+          github-branch: ${{ matrix.github-branch }}
+          github-token: ${{ matrix.github-token }}
+          package-token: ${{ matrix.package-token }}
