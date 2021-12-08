@@ -17,14 +17,13 @@ jobs:
             github-owner: oco-research
             github-repo: nodejs-sdk
             github-branch: main
-            github-token: secret #${{ secrets.REMOTE_GIT_TOKEN }}
-            package-token: secret #${{ secrets.REMOTE_NPM_TOKEN }}
+            github-token: REMOTE_GIT_TOKEN
+            package-token: REMOTE_NPM_TOKEN
           - generator: php
             github-owner: oco-research
             github-repo: php-sdk
             github-branch: main
-            github-token: secret #${{ secrets.REMOTE_GIT_TOKEN }}
-            package-token: secret #${{ secrets.REMOTE_COMPOSER_TOKEN }}
+            github-token: REMOTE_GIT_TOKEN
 
     steps:
       - name: Generate ${{ matrix.generator }} SDK
@@ -34,5 +33,5 @@ jobs:
           github-owner: ${{ matrix.github-owner }}
           github-repo: ${{ matrix.github-repo }}
           github-branch: ${{ matrix.github-branch }}
-          github-token: ${{ matrix.github-token }}
-          package-token: ${{ matrix.package-token }}
+          github-token: ${{ secrets[matrix.github-token] }}
+          package-token: ${{ secrets[matrix.package-token] }}
