@@ -27,7 +27,7 @@ jobs:
             package-token: secret #${{ secrets.REMOTE_COMPOSER_TOKEN }}
 
     steps:
-      - name: Generate JavaScript SDK
+      - name: Generate ${{ matrix.generator }} SDK
         uses: oco-research/sdk-generator@v1
         with:
           generator: ${{ matrix.generator }}
