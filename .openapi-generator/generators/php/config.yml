@@ -1,0 +1,11 @@
+# Configuration for PHP generator
+templateDir: .openapi-generator/generators/php/templates
+variableNamingConvention: camelCase
+invokerPackage: GarageWeek
+modelPackage: PetStoreClient
+packageName: oco-research/php-sdk
+composerPackageName: oco-research/php-sdk
+projectDescription: PHP SDK for Pet Store API
+files:
+  .github/workflows/publish.yml:
+    destinationFilename: .github/workflows/publish.yml
