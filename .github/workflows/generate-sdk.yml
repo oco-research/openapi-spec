@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate-sdk:
+  generate:
     runs-on: ubuntu-latest
 
     strategy:
