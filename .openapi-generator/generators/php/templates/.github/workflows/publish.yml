@@ -18,7 +18,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           strategy: regex
           root: "composer.json"
-          regex_pattern: "version=([0-9\.])"
+          regex_pattern: "version=([0-9.])"
 
       - name: Release
         id: create_release
