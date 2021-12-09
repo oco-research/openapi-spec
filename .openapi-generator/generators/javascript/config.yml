@@ -5,6 +5,8 @@ npmRepository: https://github.com/oco-research/nodejs-sdk
 projectDescription: NodeJS SDK for Pet Store API
 usePromises: true
 specProject: oco-research/openapi-spec
+repoOrg: oco-research
+repoName: nodejs-sdk
 files:
   .github/workflows/publish.yml:
     destinationFilename: .github/workflows/publish.yml
