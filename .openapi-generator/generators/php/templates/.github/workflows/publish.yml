@@ -1,0 +1,38 @@
+name: Tag, Release & Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Tag
+        id: autotagger
+        uses: butlerlogic/action-autotag@stable
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          strategy: regex
+          root: "composer.json"
+          regex_pattern: "version=([0-9.])"
+
+      - name: Release
+        id: create_release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.autotagger.outputs.tagname }}
+          release_name: ${{ steps.autotagger.outputs.tagname }}
+          body: ${{ steps.autotagger.outputs.tagmessage }}
+          draft: false
+          prerelease: ${{ steps.autotagger.outputs.prerelease == 'yes' }}
+
+      - name: Publish
+        id: publish
+        if: steps.autotagger.outputs.tagname != ''
+        run: curl -XPOST -H'content-type:application/json' 'https://packagist.org/api/update-package?username=${{ env.PACKAGE_USERNAME }}&apiToken=${{ env.PACKAGE_TOKEN }}' -d'{"repository":{"url":"https://packagist.org/packages/${{ github.repository }}"}}'

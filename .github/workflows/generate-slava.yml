@@ -24,6 +24,8 @@ jobs:
             github-repo: php-sdk
             github-branch: main
             github-token: REMOTE_GIT_TOKEN
+            package-token: REMOTE_PACKAGIST_API_TOKEN
+            package-username: REMOTE_PACKAGIST_USERNAME
 
     steps:
       - name: Generate ${{ matrix.generator }} SDK
@@ -35,3 +37,4 @@ jobs:
           github-branch: ${{ matrix.github-branch }}
           github-token: ${{ secrets[matrix.github-token] }}
           package-token: ${{ secrets[matrix.package-token] }}
+          package-username: ${{ secrets[matrix.package-username] }}
