@@ -6,6 +6,9 @@ modelPackage: PetStoreClient
 packageName: oco-research/php-sdk
 composerPackageName: oco-research/php-sdk
 projectDescription: PHP SDK for Pet Store API
+specProject: oco-research/openapi-spec
 files:
   .github/workflows/publish.yml:
     destinationFilename: .github/workflows/publish.yml
+  docs/index.mustache:
+    destinationFilename: docs/index.html
