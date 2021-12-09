@@ -6,3 +6,5 @@ files:
     destinationFilename: .github/workflows/publish.yml
   docs/index.mustache:
     destinationFilename: docs/index.html
+  pom.xml.mustache:
+    destinationFilename: pom.xml
