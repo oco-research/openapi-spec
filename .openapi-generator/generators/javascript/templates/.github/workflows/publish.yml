@@ -28,7 +28,7 @@ jobs:
           body: ${{ steps.autotagger.outputs.tagmessage }}
           draft: false
           prerelease: ${{ steps.autotagger.outputs.prerelease == 'yes' }}
-
+      - run: npm install
       - name: Publish
         id: publish
         if: steps.autotagger.outputs.tagname != ''
