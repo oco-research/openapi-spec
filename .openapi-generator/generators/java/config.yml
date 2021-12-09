@@ -1,0 +1,2 @@
+# Configuration for Java generator
+templateDir: .openapi-generator/generators/java/templates
