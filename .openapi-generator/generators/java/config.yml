@@ -1,2 +1,5 @@
 # Configuration for Java generator
 templateDir: .openapi-generator/generators/java/templates
+files:
+  .github/workflows/publish.yml:
+    destinationFilename: .github/workflows/publish.yml
