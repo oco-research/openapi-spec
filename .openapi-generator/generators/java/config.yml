@@ -1,8 +1,10 @@
 # Configuration for Java generator
 templateDir: .openapi-generator/generators/java/templates
+specProject: oco-research/openapi-spec
 files:
   .github/workflows/publish.yml:
     destinationFilename: .github/workflows/publish.yml
+  docs/index.mustache:
+    destinationFilename: docs/index.html
   pom.xml.mustache:
     destinationFilename: pom.xml
-
