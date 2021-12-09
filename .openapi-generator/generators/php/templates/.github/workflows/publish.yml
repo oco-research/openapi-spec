@@ -22,6 +22,7 @@ jobs:
 
       - name: Release
         id: create_release
+        if: steps.autotagger.outputs.tagcreated == 'yes'
         uses: actions/create-release@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -34,5 +35,5 @@ jobs:
 
       - name: Publish
         id: publish
-        if: steps.autotagger.outputs.tagname != ''
+        if: steps.autotagger.outputs.tagcreated == 'yes'
         run: curl -XPOST -H'content-type:application/json' 'https://packagist.org/api/update-package?username=${{ secrets.PACKAGE_USERNAME }}&apiToken=${{ secrets.PACKAGE_TOKEN }}' -d'{"repository":{"url":"https://packagist.org/packages/${{ github.repository }}"}}'
