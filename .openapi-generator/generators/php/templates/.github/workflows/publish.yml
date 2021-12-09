@@ -17,8 +17,8 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           strategy: regex
-          root: "./composer.json"
-          regex_pattern: "(version:)(\\s)?(?<version>\\d+\\.\\d+\\.\\d+(.+)?)\\n?"
+          root: composer.json
+          regex_pattern: 'version":\s+"([^"]+)"'
 
       - name: Release
         id: create_release
