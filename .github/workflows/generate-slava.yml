@@ -37,3 +37,4 @@ jobs:
           github-branch: ${{ matrix.github-branch }}
           github-token: ${{ secrets[matrix.github-token] }}
           package-token: ${{ secrets[matrix.package-token] }}
+          package-username: ${{ secrets[matrix.package-username] }}
