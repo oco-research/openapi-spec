@@ -10,32 +10,31 @@ jobs:
   generate-sdk:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        include:
+          - generator: javascript
+            github-owner: oco-research
+            github-repo: nodejs-sdk
+            github-branch: main
+            github-token: REMOTE_GIT_TOKEN
+            package-token: REMOTE_NPM_TOKEN
+          - generator: php
+            github-owner: oco-research
+            github-repo: php-sdk
+            github-branch: main
+            github-token: REMOTE_GIT_TOKEN
+            package-token: REMOTE_PACKAGIST_API_TOKEN
+            package-username: REMOTE_PACKAGIST_USERNAME
+
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Copy .openapi-generator-ignore file to ignore files during generation
-        run: mkdir javascript-client && cp .openapi-generator/generators/javascript/.openapi-generator-ignore javascript-client/
-
-      - name: Generate JavaScript SDK
-        uses: openapi-generators/openapitools-generator-action@v1
+      - name: Generate ${{ matrix.generator }} SDK
+        uses: oco-research/sdk-generator@v1
         with:
-          generator: javascript
-          config-file: .openapi-generator/generators/javascript/config.yml
-
-      - name: Push changes to external repo
-        env:
-          REMOTE_GIT_TOKEN: ${{ secrets.REMOTE_GIT_TOKEN }}
-        run: |
-          OPENAPI_VERSION=$(cat openapi.json | python3 -c "import sys, json; print(json.load(sys.stdin)['info']['version'])")
-          echo "OpenAPI Version: ${OPENAPI_VERSION}"
-          git config --global user.email "devex-open-contribution-office@adobe.com"
-          git config --global user.name "OCO SDK Generator"
-          git config --global init.defaultBranch main
-          git config --global pull.rebase false
-          cd javascript-client
-          git init
-          git add .
-          git commit -m "${OPENAPI_VERSION}"
-          git remote add origin https://"$REMOTE_GIT_TOKEN"@github.com/oco-research/nodejs-sdk.git
-          git pull origin main --allow-unrelated-histories -X ours
-          git push origin main
+          generator: ${{ matrix.generator }}
+          github-owner: ${{ matrix.github-owner }}
+          github-repo: ${{ matrix.github-repo }}
+          github-branch: ${{ matrix.github-branch }}
+          github-token: ${{ secrets[matrix.github-token] }}
+          package-token: ${{ secrets[matrix.package-token] }}
+          package-username: ${{ secrets[matrix.package-username] }}
