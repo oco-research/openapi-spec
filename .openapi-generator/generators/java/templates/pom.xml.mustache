@@ -9,38 +9,31 @@
     <url>{{artifactUrl}}</url>
     <description>{{artifactDescription}}</description>
     <scm>
-        <connection>{{scmConnection}}</connection>
-        <developerConnection>{{scmDeveloperConnection}}</developerConnection>
-        <url>{{scmUrl}}</url>
+        <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
+        <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
+        <url>https://github.com/openapitools/openapi-generator</url>
     </scm>
-    {{#parentOverridden}}
-    <parent>
-        <groupId>{{{parentGroupId}}}</groupId>
-        <artifactId>{{{parentArtifactId}}}</artifactId>
-        <version>{{{parentVersion}}}</version>
-    </parent>
-    {{/parentOverridden}}
 
     <licenses>
         <license>
-            <name>{{licenseName}}</name>
-            <url>{{licenseUrl}}</url>
+            <name>Unlicense</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <name>{{developerName}}</name>
-            <email>{{developerEmail}}</email>
-            <organization>{{developerOrganization}}</organization>
-            <organizationUrl>{{developerOrganizationUrl}}</organizationUrl>
+            <name>OpenAPI-Generator Contributors</name>
+            <email>team@openapitools.org</email>
+            <organization>OpenAPITools.org</organization>
+            <organizationUrl>http://openapitools.org</organizationUrl>
         </developer>
     </developers>
 
     <build>
         <plugins>
-            <plugin>
+           <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
@@ -50,16 +43,14 @@
                     <maxmem>512m</maxmem>
                     <compilerArgs>
                         <arg>-Xlint:all</arg>
-                        <arg>-J-Xss4m
-                        </arg><!-- Compiling the generated JSON.java file may require larger stack size. -->
+                        <arg>-J-Xss4m</arg><!-- Compiling the generated JSON.java file may require larger stack size. -->
                     </compilerArgs>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -79,7 +70,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12</version>
+                <version>3.0.0-M5</version>
                 <configuration>
                     <systemProperties>
                         <property>
@@ -89,7 +80,7 @@
                     </systemProperties>
                     <argLine>-Xms512m -Xmx1500m</argLine>
                     <parallel>methods</parallel>
-                    <forkMode>pertest</forkMode>
+                    <threadCount>10</threadCount>
                 </configuration>
             </plugin>
             <plugin>
@@ -106,16 +97,14 @@
                     </execution>
                 </executions>
             </plugin>
-
             <!-- attach test jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>jar</goal>
                             <goal>test-jar</goal>
                         </goals>
                     </execution>
@@ -123,11 +112,10 @@
                 <configuration>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.10</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>add_sources</id>
@@ -157,32 +145,8 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
-                <configuration>
-                    {{#java8}}
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    {{/java8}}
-                    {{^java8}}
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    {{/java8}}
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <doclint>none</doclint>
-                    {{#java8}}
-                    <source>1.8</source>
-                    {{/java8}}
-                    {{^java8}}
-                    <source>1.7</source>
-                    {{/java8}}
-                </configuration>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -191,11 +155,21 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <doclint>none</doclint>
+                    <tags>
+                        <tag>
+                            <name>http.response.details</name>
+                            <placement>a</placement>
+                            <head>Http Response Details:</head>
+                        </tag>
+                    </tags>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -204,6 +178,48 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- Use spotless plugin to automatically format code, remove unused import, etc
+                 To apply changes directly to the file, run `mvn spotless:apply`
+                 Ref: https://github.com/diffplug/spotless/tree/main/plugin-maven
+            -->
+            <plugin>
+              <groupId>com.diffplug.spotless</groupId>
+              <artifactId>spotless-maven-plugin</artifactId>
+              <version>${spotless.version}</version>
+              <configuration>
+                <formats>
+                  <!-- you can define as many formats as you want, each is independent -->
+                  <format>
+                    <!-- define the files to apply to -->
+                    <includes>
+                      <include>.gitignore</include>
+                    </includes>
+                    <!-- define the steps to apply to those files -->
+                    <trimTrailingWhitespace/>
+                    <endWithNewline/>
+                    <indent>
+                      <spaces>true</spaces> <!-- or <tabs>true</tabs> -->
+                      <spacesPerTab>4</spacesPerTab> <!-- optional, default is 4 -->
+                    </indent>
+                  </format>
+                </formats>
+                <!-- define a language-specific format -->
+                <java>
+                  <!-- no need to specify files, inferred automatically, but you can if you want -->
+
+                  <!-- apply a specific flavor of google-java-format and reflow long strings -->
+                  <googleJavaFormat>
+                    <version>1.8</version>
+                    <style>AOSP</style>
+                    <reflowLongStrings>true</reflowLongStrings>
+                  </googleJavaFormat>
+
+                  <removeUnusedImports/>
+                  <importOrder/>
+
+                </java>
+              </configuration>
             </plugin>
         </plugins>
     </build>
@@ -216,7 +232,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
+                        <version>3.0.1</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -231,8 +247,8 @@
             </build>
         </profile>
     </profiles>
+
     <dependencies>
-        <!-- https://github.com/OpenAPITools/openapi-generator/issues/5231 -->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
@@ -305,22 +321,26 @@
         </dependency>
     </dependencies>
     <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <gson-fire-version>1.8.5</gson-fire-version>
+        <swagger-core-version>1.6.3</swagger-core-version>
+        <okhttp-version>4.9.2</okhttp-version>
+        <gson-version>2.8.8</gson-version>
+        <commons-lang3-version>3.12.0</commons-lang3-version>
+        <jackson-databind-nullable-version>0.2.1</jackson-databind-nullable-version>
+        <threetenbp-version>1.5.0</threetenbp-version>
+        <jakarta-annotation-version>1.3.5</jakarta-annotation-version>
+        <junit-version>4.13.2</junit-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <swagger-annotations-version>1.5.21</swagger-annotations-version>
-        <jersey-version>1.19.4</jersey-version>
-        <jackson-version>2.12.1</jackson-version>
-        {{#threetenbp}}
-        <jackson-threetenbp-version>2.9.10</jackson-threetenbp-version>
-        {{/threetenbp}}
-        <javax-annotation-version>1.3.2</javax-annotation-version>
-        <maven-plugin-version>1.0.0</maven-plugin-version>
-        <junit-version>4.13.1</junit-version>
+        <spotless.version>2.17.3</spotless.version>
     </properties>
     <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/oco-research/java-sdk</url>
-        </repository>
+      <repository>
+        <id>github</id>
+        <name>GitHub Packages</name>
+        <url>https://maven.pkg.github.com/oco-research/java-sdk</url>
+      </repository>
     </distributionManagement>
 </project>
