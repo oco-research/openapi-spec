@@ -1,0 +1,37 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Tag
+        id: autotagger
+        uses: butlerlogic/action-autotag@stable
+        with:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Release
+        id: create_release
+        if: steps.autotagger.outputs.tagcreated == 'yes'
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.autotagger.outputs.tagname }}
+          release_name: ${{ steps.autotagger.outputs.tagname }}
+          body: ${{ steps.autotagger.outputs.tagmessage }}
+          draft: false
+          prerelease: ${{ steps.autotagger.outputs.prerelease == 'yes' }}
+
+      - name: Publish
+        id: publish
+        if: steps.autotagger.outputs.tagname != ''
+        uses: author/action-publish@stable
+        env:
+          REGISTRY_TOKEN: "${{ secrets.PACKAGE_TOKEN }}"
