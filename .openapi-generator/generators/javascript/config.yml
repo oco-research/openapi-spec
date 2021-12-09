@@ -1,7 +1,7 @@
 # Configuration for Javascript generator
 templateDir: .openapi-generator/generators/javascript/templates
 projectName: oco-research-nodejs-sdk
-npmRepository: https://github.com/oco-research/nodejs-sdk
+npmRepository: https://www.npmjs.com/package/oco-research-nodejs-sdk
 projectDescription: NodeJS SDK for Pet Store API
 usePromises: true
 specProject: oco-research/openapi-spec
