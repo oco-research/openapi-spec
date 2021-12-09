@@ -26,6 +26,11 @@ jobs:
             github-token: REMOTE_GIT_TOKEN
             package-token: REMOTE_PACKAGIST_API_TOKEN
             package-username: REMOTE_PACKAGIST_USERNAME
+          - generator: java
+            github-owner: oco-research
+            github-repo: java-sdk
+            github-branch: main
+            github-token: REMOTE_GIT_TOKEN
 
     steps:
       - name: Generate ${{ matrix.generator }} SDK
