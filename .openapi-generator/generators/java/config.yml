@@ -1,6 +1,10 @@
 # Configuration for Java generator
 templateDir: .openapi-generator/generators/java/templates
 specProject: oco-research/openapi-spec
+groupId: oco-research
+artifactUrl: https://github.com/oco-research/java-sdk/
+artifactId: java-sdk
+apiPackage: oco.garageweek.openapi.spec
 files:
   .github/workflows/publish.yml:
     destinationFilename: .github/workflows/publish.yml
