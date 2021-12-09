@@ -24,6 +24,11 @@ jobs:
             github-repo: php-sdk
             github-branch: main
             github-token: REMOTE_GIT_TOKEN
+          - generator: java
+            github-owner: oco-research
+            github-repo: java-sdk
+            github-branch: main
+            github-token: REMOTE_GIT_TOKEN
 
     steps:
       - name: Generate ${{ matrix.generator }} SDK
