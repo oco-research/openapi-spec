@@ -2,7 +2,7 @@
 templateDir: .openapi-generator/generators/java/templates
 specProject: oco-research/openapi-spec
 repoOrg: oco-research
-repoName: php-sdk
+repoName: java-sdk
 files:
   .github/workflows/publish.yml:
     destinationFilename: .github/workflows/publish.yml
