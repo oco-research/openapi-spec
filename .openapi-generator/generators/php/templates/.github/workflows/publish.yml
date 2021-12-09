@@ -16,8 +16,8 @@ jobs:
         uses: butlerlogic/action-autotag@stable
         with:
           strategy: regex
-          root: "composer.json"
-          regex_pattern: "version=([0-9\.])"
+          root: "./composer.json"
+          regex_pattern: "version=([0-9.])"
 
       - name: Release
         id: create_release
