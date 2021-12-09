@@ -1,4 +1,4 @@
-name: Generate SDK
+name: Validate schema
 
 on:
   pull_request:
