@@ -3,3 +3,6 @@ templateDir: .openapi-generator/generators/java/templates
 files:
   .github/workflows/publish.yml:
     destinationFilename: .github/workflows/publish.yml
+  pom.xml.mustache:
+    destinationFilename: pom.xml
+
