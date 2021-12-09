@@ -35,4 +35,4 @@ jobs:
       - name: Publish
         id: publish
         if: steps.autotagger.outputs.tagname != ''
-        run: curl -XPOST -H'content-type:application/json' 'https://packagist.org/api/update-package?username=${{ env.PACKAGE_USERNAME }}&apiToken=${{ env.PACKAGE_TOKEN }}' -d'{"repository":{"url":"https://packagist.org/packages/${{ github.repository }}"}}'
+        run: curl -XPOST -H'content-type:application/json' 'https://packagist.org/api/update-package?username=${{ secrets.PACKAGE_USERNAME }}&apiToken=${{ secrets.PACKAGE_TOKEN }}' -d'{"repository":{"url":"https://packagist.org/packages/${{ github.repository }}"}}'
